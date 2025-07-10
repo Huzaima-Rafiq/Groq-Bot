@@ -1,0 +1,92 @@
+# Groq AI Models Documentation
+
+This document provides detailed information about the available Groq AI models used in this chatbot application.
+
+## Available Models
+
+### Llama3-8B-8192
+- **Model ID**: `llama3-8b-8192`
+- **Description**: Optimized for speed and efficiency
+- **Parameters**: 8 billion
+- **Context Window**: 8,192 tokens
+- **Best For**: General tasks, quick responses, everyday conversations
+- **Performance**: Fast inference, low latency
+- **Use Cases**: Customer support, general Q&A, simple coding tasks
+
+### Llama3-70B-8192
+- **Model ID**: `llama3-70b-8192`
+- **Description**: Enhanced reasoning capabilities for complex tasks
+- **Parameters**: 70 billion
+- **Context Window**: 8,192 tokens
+- **Best For**: Complex reasoning, detailed analysis, sophisticated problem-solving
+- **Performance**: Higher accuracy, more comprehensive responses
+- **Use Cases**: Research assistance, complex coding, detailed explanations, academic tasks
+
+### Llama-3.1-8B-Instant
+- **Model ID**: `llama-3.1-8b-instant`
+- **Description**: Lightning-fast responses with larger context
+- **Parameters**: 8 billion
+- **Context Window**: 32,768 tokens (estimated)
+- **Best For**: Instant responses, applications requiring speed
+- **Performance**: Extremely fast inference
+- **Use Cases**: Real-time chat, quick translations, instant Q&A
+
+### Llama-3.3-70B-Versatile
+- **Model ID**: `llama-3.3-70b-versatile`
+- **Description**: Balanced performance with 128K context window
+- **Parameters**: 70 billion
+- **Context Window**: 128,000 tokens
+- **Best For**: Long documents, extensive conversations, large context tasks
+- **Performance**: Excellent balance of speed and capability
+- **Use Cases**: Document analysis, long-form content generation, extensive coding projects
+
+### Gemma2-9B-IT
+- **Model ID**: `gemma2-9b-it`
+- **Description**: Google's instruction-tuned model for diverse applications
+- **Parameters**: 9 billion
+- **Context Window**: Variable
+- **Best For**: Instruction following, diverse task handling
+- **Performance**: Well-balanced across different task types
+- **Use Cases**: Multi-purpose applications, instruction-based tasks, general assistance
+
+## Model Selection Guide
+
+### When to Use Each Model:
+
+| Task Type | Recommended Model | Reason |
+|-----------|------------------|--------|
+| Quick Q&A | Llama3-8B-8192 | Fast response time |
+| Complex Analysis | Llama3-70B-8192 | Superior reasoning |
+| Real-time Chat | Llama-3.1-8B-Instant | Instant responses |
+| Long Documents | Llama-3.3-70B-Versatile | Large context window |
+| Instruction Following | Gemma2-9B-IT | Optimized for instructions |
+
+## Performance Comparison
+
+```
+Speed:     Llama-3.1-8B-Instant > Llama3-8B-8192 > Gemma2-9B-IT > Llama-3.3-70B-Versatile > Llama3-70B-8192
+Quality:   Llama3-70B-8192 > Llama-3.3-70B-Versatile > Gemma2-9B-IT > Llama3-8B-8192 > Llama-3.1-8B-Instant
+Context:   Llama-3.3-70B-Versatile > Llama-3.1-8B-Instant > Llama3-8B-8192 = Llama3-70B-8192 > Gemma2-9B-IT
+```
+
+## Usage Tips
+
+1. **Start with Llama3-8B-8192** for general use - it provides good balance of speed and quality
+2. **Switch to Llama3-70B-8192** when you need detailed analysis or complex reasoning
+3. **Use Llama-3.1-8B-Instant** for applications where response speed is critical
+4. **Choose Llama-3.3-70B-Versatile** when working with long documents or extensive context
+5. **Try Gemma2-9B-IT** for instruction-heavy tasks or when you need consistent task following
+
+## API Configuration
+
+All models are accessible through the Groq API with the following parameters:
+- **Temperature**: 0.0 - 2.0 (recommended: 0.7)
+- **Max Tokens**: Configurable (recommended: 1000)
+- **Streaming**: Supported
+- **System Prompts**: Supported
+
+## Updates and Availability
+
+> **Note**: Model availability and specifications may change. Always check the [Groq Console](https://console.groq.com/) for the latest information.
+
+Last updated: January 2025
