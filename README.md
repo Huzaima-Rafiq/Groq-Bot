@@ -18,9 +18,10 @@ This project demonstrates the integration of Groq's optimized inference API with
 ## Supported Models
 
 - **Llama3-8B-8192**: Optimized for speed and efficiency
-- **Llama3-70B-8192**: Enhanced reasoning capabilities for complex tasks
-- **Mixtral-8x7B-32768**: Balanced performance across various use cases
-- **Gemma-7B-IT**: Google's instruction-tuned model for diverse applications
+- **Llama3-70B-8192**: Enhanced reasoning capabilities for complex tasks  
+- **Llama-3.1-8B-Instant**: Lightning-fast responses with larger context
+- **Llama-3.3-70B-Versatile**: Balanced performance with 128K context window
+- **Gemma2-9B-IT**: Google's instruction-tuned model for diverse applications
 
 ## Installation
 
