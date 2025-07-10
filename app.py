@@ -64,10 +64,6 @@ class GroqChatbot:
         except Exception as e:
             return f"❌ Error: {str(e)}"
     
-    def clear_history(self):
-        self.conversation_history = []
-        self.add_system_message(self.config.system_prompt)
-        
     def change_model(self, model_name):
         self.config.model = model_name
         
@@ -81,19 +77,20 @@ class GroqChatbot:
         else:
             self.conversation_history.insert(0, {"role": "system", "content": prompt})
 
-# Available models
+# Available models (updated to remove decommissioned models)
 AVAILABLE_MODELS = [
     "llama3-8b-8192",
-    "llama3-70b-8192", 
-    "mixtral-8x7b-32768",
-    "gemma-7b-it"
+    "llama3-70b-8192",
+    "llama-3.1-8b-instant",
+    "llama-3.3-70b-versatile",
+    "gemma2-9b-it"
 ]
 
 # Initialize chatbot
 config = ChatbotConfig()
 chatbot = GroqChatbot(GROQ_API_KEY, config)
 
-# Custom CSS
+# Custom CSS - Fixed for proper layout
 custom_css = """
 .gradio-container {
     max-width: 1200px !important;
@@ -128,27 +125,6 @@ def chat_with_bot(message, history, model, temperature, system_prompt):
     
     return history, history, ""
 
-def clear_chat():
-    chatbot.clear_history()
-    return [], []
-
-def export_chat(history):
-    if not history:
-        return None
-    
-    export_data = {
-        "timestamp": datetime.now().isoformat(),
-        "model": chatbot.config.model,
-        "temperature": chatbot.config.temperature,
-        "conversation": history
-    }
-    
-    filename = f"chat_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-    with open(filename, 'w') as f:
-        json.dump(export_data, f, indent=2)
-    
-    return filename
-
 # Create main interface
 def create_interface():
     with gr.Blocks(css=custom_css, title="Groq AI Chatbot", theme=gr.themes.Soft()) as iface:
@@ -181,18 +157,15 @@ def create_interface():
                     show_copy_button=True
                 )
                 
-                msg = gr.Textbox(
-                    placeholder="Type your message here and press Enter...",
-                    label="Your Message",
-                    lines=2,
-                    max_lines=10,
-                    scale=4
-                )
-                
                 with gr.Row():
-                    submit_btn = gr.Button("Send 📤", variant="primary", scale=1)
-                    clear_btn = gr.Button("Clear 🗑️", variant="secondary", scale=1)
-                    export_btn = gr.Button("Export 💾", variant="secondary", scale=1)
+                    msg = gr.Textbox(
+                        placeholder="Type your message here and press Enter...",
+                        label="Your Message",
+                        lines=2,
+                        max_lines=10,
+                        scale=4
+                    )
+                    submit_btn = gr.Button("Send 📤", variant="primary")
             
             with gr.Column(scale=1):
                 # Settings panel
@@ -220,21 +193,6 @@ def create_interface():
                     lines=4,
                     info="Define the AI's personality and behavior"
                 )
-                
-                # Model information
-                gr.Markdown(
-                    """
-                    ## 📊 Model Guide
-                    
-                    **Llama3-8B**: ⚡ Fastest, great for quick responses
-                    
-                    **Llama3-70B**: 🧠 Most capable, best reasoning
-                    
-                    **Mixtral-8x7B**: ⚖️ Balanced speed and quality
-                    
-                    **Gemma-7B**: 🔬 Google's efficient model
-                    """
-                )
         
         # Example prompts section
         gr.Markdown("## 💡 Try These Prompts")
@@ -247,21 +205,18 @@ def create_interface():
             "Explain the latest trends in technology"
         ]
         
+        # Create example buttons in rows
         with gr.Row():
-            for i, prompt in enumerate(example_prompts):
-                if i < 3:  # First row
-                    gr.Button(prompt, size="sm").click(
-                        lambda p=prompt: p,
-                        outputs=[msg]
-                    )
+            for i in range(3):
+                if i < len(example_prompts):
+                    btn = gr.Button(example_prompts[i], size="sm")
+                    btn.click(lambda p=example_prompts[i]: p, outputs=[msg])
         
         with gr.Row():
-            for i, prompt in enumerate(example_prompts):
-                if i >= 3:  # Second row
-                    gr.Button(prompt, size="sm").click(
-                        lambda p=prompt: p,
-                        outputs=[msg]
-                    )
+            for i in range(3, 5):
+                if i < len(example_prompts):
+                    btn = gr.Button(example_prompts[i], size="sm")
+                    btn.click(lambda p=example_prompts[i]: p, outputs=[msg])
         
         # Chat history state
         state = gr.State([])
@@ -282,10 +237,6 @@ def create_interface():
             inputs=[msg, state, model_dropdown, temperature_slider, system_prompt_box],
             outputs=[chatbot_interface, state, msg]
         )
-        
-        # Clear and export events
-        clear_btn.click(clear_chat, outputs=[chatbot_interface, state])
-        export_btn.click(export_chat, inputs=[state], outputs=[gr.File(label="💾 Download Chat")])
         
         # Footer
         gr.Markdown(
