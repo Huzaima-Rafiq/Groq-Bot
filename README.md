@@ -86,7 +86,6 @@ For Google Colab usage:
 
 ## Project Structure
 
-
 groq-chatbot/
 ├── app.py                 # Main application file
 ├── requirements.txt       # Python dependencies
