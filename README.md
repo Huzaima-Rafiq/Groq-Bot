@@ -1,222 +1,206 @@
-Groq AI Chatbot
+# Groq AI Chatbot
 
 A high-performance conversational AI application built with Groq's inference engine and Gradio interface. This chatbot provides lightning-fast responses using state-of-the-art language models with a clean, professional web interface.
-Overview
+
+## Overview
 
 This project demonstrates the integration of Groq's optimized inference API with a user-friendly web interface. The application supports multiple advanced language models and provides real-time conversational capabilities with customizable parameters.
-Features
 
-    Multiple AI Models: Support for Llama3, Mixtral, and Gemma models
+## Features
 
-    Real-time Chat Interface: Interactive web-based conversation system
+- **Multiple AI Models**: Support for Llama3, Mixtral, and Gemma models
+- **Real-time Chat Interface**: Interactive web-based conversation system
+- **Customizable Parameters**: Adjustable temperature, system prompts, and model selection
+- **Conversation Management**: Chat history, export functionality, and session clearing
+- **Professional UI**: Clean, responsive design optimized for desktop and mobile
+- **Environment-based Configuration**: Secure API key management through environment variables
 
-    Customizable Parameters: Adjustable temperature, system prompts, and model selection
+## Supported Models
 
-    Conversation Management: Chat history, export functionality, and session clearing
+- **Llama3-8B-8192**: Optimized for speed and efficiency
+- **Llama3-70B-8192**: Enhanced reasoning capabilities for complex tasks
+- **Mixtral-8x7B-32768**: Balanced performance across various use cases
+- **Gemma-7B-IT**: Google's instruction-tuned model for diverse applications
 
-    Professional UI: Clean, responsive design optimized for desktop and mobile
+## Installation
 
-    Environment-based Configuration: Secure API key management through environment variables
+### Prerequisites
 
-Supported Models
+- Python 3.8 or higher
+- Groq API key (obtain from [console.groq.com](https://console.groq.com/))
 
-    Llama3-8B-8192: Optimized for speed and efficiency
+### Setup
 
-    Llama3-70B-8192: Enhanced reasoning capabilities for complex tasks
-
-    Mixtral-8x7B-32768: Balanced performance across various use cases
-
-    Gemma-7B-IT: Google's instruction-tuned model for diverse applications
-
-Installation
-Prerequisites
-
-    Python 3.8 or higher
-
-    Groq API key (obtain from console.groq.com)
-
-Setup
-
-    Clone the repository:
-
+1. Clone the repository:
+```bash
 git clone https://github.com/yourusername/groq-chatbot.git
 cd groq-chatbot
+```
 
-    Install dependencies:
-
+2. Install dependencies:
+```bash
 pip install -r requirements.txt
+```
 
-    Set up environment variables:
-
+3. Set up environment variables:
+```bash
 export GROQ_API_KEY="your_groq_api_key_here"
+```
 
-Alternatively, create a .env file in the project root:
-
+Alternatively, create a `.env` file in the project root:
+```
 GROQ_API_KEY=your_groq_api_key_here
+```
 
-Usage
-Local Development
+## Usage
+
+### Local Development
 
 Run the application locally:
-
+```bash
 python app.py
+```
 
-The interface will be available at http://localhost:7860
-Google Colab
+The interface will be available at `http://localhost:7860`
 
-    Upload the notebook version
+### Google Colab
 
-    Set your API key in the designated cell
+For Google Colab usage:
+1. Upload the notebook version
+2. Set your API key in the designated cell
+3. Run all cells to launch the interface
 
-    Run all cells to launch the interface
+### Hugging Face Spaces Deployment
 
-Configuration
-Environment Variables
+1. Create a new Space on Hugging Face
+2. Upload the project files
+3. Set `GROQ_API_KEY` as a secret in Space settings
+4. The application will deploy automatically
 
-    GROQ_API_KEY: Required. Your Groq API key for authentication
+## Configuration
 
-Application Settings
+### Environment Variables
 
-    Temperature: Controls response randomness (0.0 to 2.0)
+- `GROQ_API_KEY`: Required. Your Groq API key for authentication
 
-    Max Tokens: Maximum response length (configurable in code)
+### Application Settings
 
-    System Prompt: Custom instructions for AI behavior
+- **Temperature**: Controls response randomness (0.0 to 2.0)
+- **Max Tokens**: Maximum response length (configurable in code)
+- **System Prompt**: Custom instructions for AI behavior
+- **Model Selection**: Choose between available models
 
-    Model Selection: Choose between available models
+## Project Structure
 
-Project Structure
-
+```
 groq-chatbot/
-├── app.py              # Main application file
-├── requirements.txt    # Python dependencies
-├── README.md           # Project documentation
-├── .env                # Environment variables (optional)
+├── app.py                 # Main application file
+├── requirements.txt       # Python dependencies
+├── README.md             # Project documentation
 
-Core Components
-ChatbotConfig
+```
 
+## API Reference
+
+### Core Classes
+
+#### `ChatbotConfig`
 Configuration management for the chatbot application.
-GroqChatbot
 
+#### `GroqChatbot`
 Main chatbot class handling Groq API interactions and conversation management.
 
-Key Methods:
+**Key Methods:**
+- `get_response(user_input)`: Generate AI response
+- `clear_history()`: Reset conversation history
+- `change_model(model_name)`: Switch AI models
+- `set_temperature(temp)`: Adjust response creativity
 
-    get_response(user_input): Generate AI response
+### Interface Functions
 
-    clear_history(): Reset conversation history
+- `chat_with_bot()`: Primary chat handling function
+- `clear_chat()`: Reset chat session
+- `export_chat()`: Export conversation history
 
-    change_model(model_name): Switch AI models
+## Development
 
-    set_temperature(temp): Adjust response creativity
+### Running Tests
 
-Interface Functions
-
-    chat_with_bot(): Primary chat handling function
-
-    clear_chat(): Reset chat session
-
-    export_chat(): Export conversation history
-
-Development
-Running Tests
-
+```bash
 python -m pytest tests/
+```
 
-Contributing
 
-    Fork the repository
+### Contributing
 
-    Create a feature branch
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass
+6. Commit your changes (`git commit -am 'Add new feature'`)
+7. Push to the branch (`git push origin feature/new-feature`)
+8. Create a Pull Request
 
-git checkout -b feature/new-feature
+## Performance
 
-Make your changes
+- **Response Time**: Sub-second response times with Groq's optimized inference
+- **Scalability**: Handles multiple concurrent users
+- **Resource Usage**: Minimal local resource requirements
 
-Add tests for new functionality
+## Security
 
-Ensure all tests pass
+- API keys are handled through environment variables
+- No sensitive data is stored in the application
+- All communications use HTTPS when deployed
 
-Commit your changes
+## Limitations
 
-git commit -am 'Add new feature'
+- Requires active internet connection for API calls
+- API usage is subject to Groq's rate limits and pricing
+- Model availability depends on Groq's service status
 
-Push to the branch
+## Troubleshooting
 
-    git push origin feature/new-feature
+### Common Issues
 
-    Create a Pull Request
+**API Key Not Found**
+- Ensure `GROQ_API_KEY` is set in environment variables
+- Verify the API key is valid and active
 
-Performance
+**Model Not Available**
+- Check Groq's service status
+- Verify the model name is correct and supported
 
-    Response Time: Sub-second response times with Groq's optimized inference
+**Installation Issues**
+- Update pip: `pip install --upgrade pip`
+- Use virtual environment for clean installation
 
-    Scalability: Handles multiple concurrent users
+## License
 
-    Resource Usage: Minimal local resource requirements
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-Security
+## Acknowledgments
 
-    API keys are handled through environment variables
+- Groq for providing the high-speed inference API
+- Gradio team for the excellent web interface framework
+- The open-source community for inspiration and support
 
-    No sensitive data is stored in the application
-
-    All communications use HTTPS when deployed
-
-Limitations
-
-    Requires active internet connection for API calls
-
-    API usage is subject to Groq's rate limits and pricing
-
-    Model availability depends on Groq's service status
-
-Troubleshooting
-Common Issues
-
-API Key Not Found
-
-    Ensure GROQ_API_KEY is set in environment variables
-
-    Verify the API key is valid and active
-
-Model Not Available
-
-    Check Groq's service status
-
-    Verify the model name is correct and supported
-
-Installation Issues
-
-    Update pip:
-
-    pip install --upgrade pip
-
-    Use a virtual environment for clean installation
-
-License
-
-This project is licensed under the MIT License.
-Support
+## Support
 
 For issues and questions:
+- Create an issue in the GitHub repository
+- Check the [Groq documentation](https://docs.groq.com/)
+- Review the [Gradio documentation](https://gradio.app/docs/)
 
-    Create an issue in the GitHub repository
+## Changelog
 
-    Check the Groq documentation
+### Version 1.0.0
+- Initial release with Groq API integration
+- Gradio web interface implementation
+- Multi-model support
+- Basic conversation management
 
-    Review the Gradio documentation
+---
 
-Changelog
-Version 1.0.0
-
-    Initial release with Groq API integration
-
-    Gradio web interface implementation
-
-    Multi-model support
-
-    Basic conversation management
-
-For more information about Groq's capabilities, visit groq.com
+For more information about Groq's capabilities, visit [groq.com](https://groq.com/).
